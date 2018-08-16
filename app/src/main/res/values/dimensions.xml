@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="image_width">35dp</dimen>
+    <dimen name="image_height">75dp</dimen>
+    <dimen name="title_size">30sp</dimen>
+    <dimen name="author_size">24sp</dimen>
+</resources>

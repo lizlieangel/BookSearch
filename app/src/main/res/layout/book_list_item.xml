@@ -21,14 +21,13 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textSize="@dimen/title_size"
-            android:text="@string/title"/>
+            android:text="@string/book_title"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/zero"
             android:layout_weight="1"
             android:id="@+id/book_author"
             android:textSize="@dimen/author_size"
-            android:text="@string/author"/>
-
+            android:text="@string/book_author"/>
     </LinearLayout>
 </RelativeLayout>
