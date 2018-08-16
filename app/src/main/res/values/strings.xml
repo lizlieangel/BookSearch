@@ -2,5 +2,5 @@
     <string name="app_name">BookSearch</string>
     <string name="no_book">No books found.</string>
     <string name="book_title"><xliff:g id="title" example="Flowers for Algernon">%s</xliff:g></string>
-    <string name="book_author"><xliff:g id="author" example="Daniel Keyes">%s</xliff:g></string>
+    <string name="book_author">Author/s: <xliff:g id="author" example="Daniel Keyes">%s</xliff:g></string>
 </resources>
