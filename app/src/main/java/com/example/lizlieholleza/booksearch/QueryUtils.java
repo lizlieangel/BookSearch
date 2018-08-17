@@ -39,5 +39,6 @@ public class QueryUtils {
         } catch (JSONException e) {
             Log.e("QueryUtils", "Problem parsing the book JSON results");
         }
+        return books;
     }
 }
