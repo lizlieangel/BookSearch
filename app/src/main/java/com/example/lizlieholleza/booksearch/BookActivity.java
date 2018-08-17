@@ -7,6 +7,7 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -91,5 +92,24 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
         adapter.clear();
+    }
+
+    private class BookAsyncTask extends AsyncTask<String,Void,List<Book>> {
+        @Override
+        protected List<Book> doInBackground(String... urls) {
+            if(urls.length < 1 || urls[0] == null) {
+                return null;
+            }
+            List<Book> result = QueryUtils.fetchBookData(urls[0]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(List<Book> books) {
+            adapter.clear();
+            if(books != null && books.isEmpty()) {
+                adapter.addAll(books);
+            }
+        }
     }
 }
