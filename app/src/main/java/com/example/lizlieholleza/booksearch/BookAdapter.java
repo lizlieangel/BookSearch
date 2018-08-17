@@ -19,11 +19,21 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookAdapter extends ArrayAdapter<Book> {
+    private String authorNames;
+
     public BookAdapter(Context context, List<Book> books) {
         super(context, 0, books);
+    }
+
+    private String listAuthors(ArrayList<String> authors) {
+        for(int i=0; i < authors.size(); i++) {
+            authorNames += authors.get(0) + " ";
+        }
+        return  authorNames;
     }
 
     @Override
@@ -40,7 +50,8 @@ public class BookAdapter extends ArrayAdapter<Book> {
         TextView bookTitle = (TextView) listItemView.findViewById(R.id.book_title);
         bookTitle.setText(currentBook.getTitle());
         TextView bookAuthor = (TextView) listItemView.findViewById(R.id.book_author);
-        bookAuthor.setText(currentBook.getAuthor());
+        String authors = listAuthors(currentBook.getAuthor());
+        bookAuthor.setText(authors);
         return listItemView;
     }
 

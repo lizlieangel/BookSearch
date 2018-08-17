@@ -1,12 +1,14 @@
 package com.example.lizlieholleza.booksearch;
 
+import java.util.ArrayList;
+
 public class Book {
     private String bookUrl;
     private String title;
-    private String[] authors;
+    private ArrayList<String> authors;
     private String imageUrl;
 
-    public Book(String bUrl, String title, String[] authors, String imgUrl) {
+    public Book(String bUrl, String title, ArrayList<String> authors, String imgUrl) {
         this.bookUrl = bUrl;
         this.title = title;
         this.authors = authors;
@@ -21,7 +23,7 @@ public class Book {
         return title;
     }
 
-    public String[] getAuthor() {
+    public ArrayList<String> getAuthor() {
         return authors;
     }
 

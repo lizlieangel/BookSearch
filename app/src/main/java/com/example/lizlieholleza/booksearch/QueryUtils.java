@@ -32,14 +32,13 @@ public class QueryUtils {
         try {
             JSONObject baseJsonResponse = new JSONObject(bookJson);
             JSONArray bookArray = baseJsonResponse.getJSONArray("items");
-            String[] authors = new String[0];
+            ArrayList<String> authors = new ArrayList<>();
             for(int i=0;i<bookArray.length();i++) {
                 JSONObject currentBook = bookArray.getJSONObject(i);
                 String bookTitle = currentBook.getString("title");
                 JSONArray bookAuthors = currentBook.getJSONArray("authors");
                 for(int j=0;j<bookAuthors.length();j++) {
-                    authors = new String[bookAuthors.length()];
-                    authors[j] = bookAuthors.getString(j);
+                    authors.add(bookAuthors.getString(j));
                 }
                 String bookUrl = currentBook.getString("webReaderLink");
                 JSONObject imageLink = currentBook.getJSONObject("imageLinks");
