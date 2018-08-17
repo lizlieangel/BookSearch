@@ -35,14 +35,16 @@ public class QueryUtils {
             ArrayList<String> authors = new ArrayList<>();
             for(int i=0;i<bookArray.length();i++) {
                 JSONObject currentBook = bookArray.getJSONObject(i);
-                String bookTitle = currentBook.getString("title");
-                JSONArray bookAuthors = currentBook.getJSONArray("authors");
+                JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
+                String bookTitle = volumeInfo.getString("title");
+                JSONArray bookAuthors = volumeInfo.getJSONArray("authors");
                 for(int j=0;j<bookAuthors.length();j++) {
                     authors.add(bookAuthors.getString(j));
                 }
                 String bookUrl = currentBook.getString("webReaderLink");
-                JSONObject imageLink = currentBook.getJSONObject("imageLinks");
+                JSONObject imageLink = volumeInfo.getJSONObject("imageLinks");
                 String imageUrl = imageLink.getString("thumbnail");
+                Log.d("request_title", bookTitle);
                 Book book = new Book(bookUrl, bookTitle, authors, imageUrl);
                 books.add(book);
             }
@@ -115,6 +117,7 @@ public class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the http request.");
         }
+        Log.d("jsonrepsonse", jsonResponse);
         List<Book> books = extractFeatureFromJson(jsonResponse);
         return books;
     }

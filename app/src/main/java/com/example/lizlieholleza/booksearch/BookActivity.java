@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,13 +26,15 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private View loadingIndicator;
     private BookAdapter adapter;
     public static final String LOG_TAG = BookActivity.class.getName();
-    private String requestUrl = "https://www.googleapis.com/books/v1/volumes?q=";
+    private static final String REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+    private String requestUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
+        requestUrl = REQUEST_URL;
         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
@@ -66,13 +69,19 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View view) {
                 String text = searchText.getText().toString();
+                Log.d("requesttext", text);
                 requestUrl += text;
+                Log.d("requestadd", requestUrl);
+                searchText.getText().clear();
+                requestUrl = REQUEST_URL;
             }
         });
     }
 
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
+        requestUrl += "flowers";
+        Log.d("requesturl", requestUrl);
         return new BookLoader(this, requestUrl);
     }
 
