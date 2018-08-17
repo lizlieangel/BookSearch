@@ -26,7 +26,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private View loadingIndicator;
     private BookAdapter adapter;
     public static final String LOG_TAG = BookActivity.class.getName();
-    private String requestUrl;
+    private String requestUrl = "https://www.googleapis.com/books/v1/volumes?q=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +61,35 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(bookPage);
             }
         });
-
+        Button searchButton = (Button) findViewById(R.id.search_button);
+        final EditText searchText = (EditText) findViewById(R.id.search_bar);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = searchText.getText().toString();
+                requestUrl += text;
+            }
+        });
     }
 
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
-        return new BookLoader(this, )
+        return new BookLoader(this,requestUrl);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> books) {
-
+        loadingIndicator = findViewById(R.id.loading_indicator);
+        loadingIndicator.setVisibility(View.GONE);
+        emptyStateView.setText(R.string.no_book);
+        adapter.clear();
+        if(books != null && !books.isEmpty()) {
+            adapter.addAll(books);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
-
+        adapter.clear();
     }
 }
