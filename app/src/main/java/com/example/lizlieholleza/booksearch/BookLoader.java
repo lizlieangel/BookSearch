@@ -1,7 +1,7 @@
 package com.example.lizlieholleza.booksearch;
 
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
+import android.content.AsyncTaskLoader;
 import java.util.List;
 
 public class BookLoader extends AsyncTaskLoader<List<Book>>{
@@ -14,6 +14,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>>{
 
     @Override
     protected void onStartLoading() {
+        super.onStartLoading();
         forceLoad();
     }
 
