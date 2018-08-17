@@ -4,4 +4,6 @@
     <string name="book_title"><xliff:g id="title" example="Flowers for Algernon">%s</xliff:g></string>
     <string name="book_author">Author/s: <xliff:g id="author" example="Daniel Keyes">%s</xliff:g></string>
     <string name="no_connection">No internet connection.</string>
+    <string name="search_book">Search books</string>
+    <string name="search_button">Search</string>
 </resources>

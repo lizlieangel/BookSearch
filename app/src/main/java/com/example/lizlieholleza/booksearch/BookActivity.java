@@ -9,8 +9,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private View loadingIndicator;
     private BookAdapter adapter;
     public static final String LOG_TAG = BookActivity.class.getName();
+    private String requestUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +61,12 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(bookPage);
             }
         });
+
     }
 
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
-        return null;
+        return new BookLoader(this, )
     }
 
     @Override
