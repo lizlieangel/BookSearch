@@ -22,6 +22,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView emptyStateView;
     private View loadingIndicator;
     private BookAdapter adapter;
+    public static final String LOG_TAG = BookActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
