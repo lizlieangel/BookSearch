@@ -10,17 +10,19 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>>{
+public class BookActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>>, SearchView.OnQueryTextListener{
     private static final int LOADER_ID = 1;
     private TextView emptyStateView;
     private View loadingIndicator;
@@ -50,6 +52,10 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
             emptyStateView.setText(R.string.no_connection);
         }
 
+        SearchView sv = (SearchView) findViewById(R.id.search_bar);
+        sv.setOnQueryTextListener(this);
+
+
         ListView bookListView = (ListView) findViewById(R.id.list);
         adapter = new BookAdapter(this, new ArrayList<Book>());
         bookListView.setEmptyView(emptyStateView);
@@ -64,7 +70,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
         Button searchButton = (Button) findViewById(R.id.search_button);
-        final EditText searchText = (EditText) findViewById(R.id.search_bar);
+        /*final EditText searchText = (EditText) findViewById(R.id.search_bar);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,12 +81,23 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
                 searchText.getText().clear();
                 requestUrl = REQUEST_URL;
             }
-        });
+        });*/
+    }
+
+    public boolean onQueryTextChange(String newText) {
+        String text = !TextUtils.isEmpty(newText) ? newText : null;
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
     }
 
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
-        requestUrl += "flowers";
+//        requestUrl += "flowers";
         Log.d("requesturl", requestUrl);
         return new BookLoader(this, requestUrl);
     }
