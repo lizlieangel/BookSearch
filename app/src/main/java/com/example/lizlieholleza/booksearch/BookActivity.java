@@ -30,6 +30,9 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final String LOG_TAG = BookActivity.class.getName();
     private static final String REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
     private String requestUrl;
+    private String searchItem;
+    private CharSequence searchText;
+    private SearchView sv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,11 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
             emptyStateView.setText(R.string.no_connection);
         }
 
-        SearchView sv = (SearchView) findViewById(R.id.search_bar);
+         sv = findViewById(R.id.search_bar);
+        /*searchText = sv.getQuery();
+        searchItem = searchText.toString();*/
+        /*Log.d("search", "try");
+        Log.d("searchText", searchItem);*/
         sv.setOnQueryTextListener(this);
 
 
@@ -69,8 +76,11 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(bookPage);
             }
         });
-        Button searchButton = (Button) findViewById(R.id.search_button);
-        /*final EditText searchText = (EditText) findViewById(R.id.search_bar);
+
+//        requestUrl = requestUrl + searchItem;
+//        requestUrl = REQUEST_URL;
+        /*Button searchButton = (Button) findViewById(R.id.search_button);
+        final EditText searchText = (EditText) findViewById(R.id.search_bar);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +95,12 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public boolean onQueryTextChange(String newText) {
-        String text = !TextUtils.isEmpty(newText) ? newText : null;
+//        searchText = sv.getQuery();
+//        searchItem = searchText.toString();
+        searchItem = !TextUtils.isEmpty(newText) ? newText:null;
+        if (searchItem == null) {
+            searchItem = "";
+        }
         getLoaderManager().restartLoader(LOADER_ID, null, this);
         return true;
     }
@@ -98,6 +113,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
 //        requestUrl += "flowers";
+        requestUrl = requestUrl + searchItem;
         Log.d("requesturl", requestUrl);
         return new BookLoader(this, requestUrl);
     }
@@ -111,6 +127,8 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         if(books != null && !books.isEmpty()) {
             adapter.addAll(books);
         }
+        searchItem = "";
+        requestUrl = REQUEST_URL; // try inorder to clear the searchname
     }
 
     @Override

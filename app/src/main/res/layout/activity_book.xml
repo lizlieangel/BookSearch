@@ -16,7 +16,6 @@
         android:layout_height="match_parent"
         android:id="@+id/list"
         android:layout_below="@+id/search_bar"
-        android:layout_above="@+id/search_button"
         android:orientation="vertical"
         android:divider="@null"
         android:dividerHeight="@dimen/zero"/>
