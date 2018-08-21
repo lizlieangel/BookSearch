@@ -39,7 +39,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
-        requestUrl = REQUEST_URL;
+//        requestUrl = REQUEST_URL;
         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
@@ -112,10 +112,13 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
+        Uri baseUri = Uri.parse(REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("searchItem", searchItem);
 //        requestUrl += "flowers";
-        requestUrl = requestUrl + searchItem;
-        Log.d("requesturl", requestUrl);
-        return new BookLoader(this, requestUrl);
+//        requestUrl = requestUrl + searchItem;
+        Log.d("requesturl", uriBuilder.toString());
+        return new BookLoader(this, uriBuilder.toString());
     }
 
     @Override
